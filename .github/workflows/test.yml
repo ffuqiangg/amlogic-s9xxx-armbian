@@ -1,0 +1,30 @@
+name: test
+
+on:
+  workflow_dispatch:
+
+env:
+  TZ: America/New_York
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo timedatectl set-timezone "${TZ}"
+
+      - name: Sync kernel to another repo
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.KERNEL_TK }}
+          repository: ffuqiangg/kernel
+          event-type: Sync-Kernel
+          client-payload: '{"releaseTag": "kernel_5.10.140"}'
