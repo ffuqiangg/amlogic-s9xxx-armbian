@@ -35,7 +35,7 @@ jobs:
         uses: ffuqiangg/amlogic-s9xxx-armbian@main
         with:
           build_target: kernel
-          kernel_version: 5.10.100
+          kernel_version: ${{ github.event.client_payload.kernel_version }}
           kernel_auto: true
           kernel_package: all
           kernel_sign: -ffuqiangg
