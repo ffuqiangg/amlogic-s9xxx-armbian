@@ -6,7 +6,6 @@
 name: Build armbian
 
 on:
-  repository_dispatch:
   workflow_dispatch:
     inputs:
       set_release:
@@ -118,7 +117,7 @@ jobs:
           echo "::set-output name=status::success"
 
       - name: Rebuild Armbian for Amlogic s9xxx
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: ffuqiangg/amlogic-s9xxx-armbian@main
         if: steps.compile.outputs.status == 'success' && !cancelled()
         with:
           build_target: armbian
