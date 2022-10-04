@@ -6,7 +6,6 @@
 name: Build armbian
 
 on:
-  repository_dispatch:
   workflow_dispatch:
     inputs:
       set_release:
@@ -112,12 +111,13 @@ jobs:
         run: |
           # Compile method and parameter description: https://docs.armbian.com/Developer-Guide_Build-Options
           cd build/
-          ./compile.sh RELEASE=${{ env.ARMBIAN_RELEASE }} BOARD=odroidn2 BRANCH=current BUILD_DESKTOP=no HOST=armbian EXPERT=yes \
+          sudo chmod +x compile.sh
+          sudo ./compile.sh RELEASE=${{ env.ARMBIAN_RELEASE }} BOARD=odroidn2 BRANCH=current BUILD_DESKTOP=no HOST=armbian EXPERT=yes \
                             BUILD_MINIMAL=no KERNEL_ONLY=no KERNEL_CONFIGURE=no CLEAN_LEVEL=make,debs COMPRESS_OUTPUTIMAGE=sha
           echo "::set-output name=status::success"
 
       - name: Rebuild Armbian for Amlogic s9xxx
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: ffuqiangg/amlogic-s9xxx-armbian@main
         if: steps.compile.outputs.status == 'success' && !cancelled()
         with:
           build_target: armbian
