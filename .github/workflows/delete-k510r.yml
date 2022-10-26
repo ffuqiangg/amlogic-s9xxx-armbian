@@ -1,0 +1,29 @@
+name: Delete K510 release
+
+on:
+  repository_dispatch:
+    types:
+      - Delete-K510r
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo timedatectl set-timezone "${TZ}"
+
+      - name: Delete older releases
+        uses: dev-drprasad/delete-older-releases@v0.2.0
+        with:
+          keep_latest: 0
+          delete_tags: true
+          delete_tag_pattern: ${{ github.event.client_payload.deleteTag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
