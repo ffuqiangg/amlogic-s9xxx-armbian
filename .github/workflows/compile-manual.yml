@@ -1,0 +1,32 @@
+name: Compile manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      kernel_version:
+        description: "Input kernel version"
+        required: true
+        default: ""
+      auto_build:
+        description: "Auto build firmware"
+        required: false
+        default: false
+        type: boolean
+      auto_sync:
+        description: "Auto sync kernel"
+        required: false
+        default: false
+        type: boolean
+
+env:
+  TZ: America/New_York
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Sync kernel to another repo
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          event-type: Compile-auto
+          client-payload: '{"kernel_version": "kernel_${{ github.event.inputs.kernel_version }}", "auto_sync": ${{ github.event.inputs.auto_sync }}, "kernel_auto": "false", "auto_build": ${{ github.event.inputs.auto_build }}}'

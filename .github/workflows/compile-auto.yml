@@ -34,7 +34,7 @@ jobs:
         with:
           build_target: kernel
           kernel_version: ${{ github.event.client_payload.kernel_version }}
-          kernel_auto: true
+          kernel_auto: ${{ github.event.client_payload.kernel_auto }}
           kernel_package: all
           kernel_sign: -ffuqiangg
           kernel_repo: unifreq
@@ -55,12 +55,12 @@ jobs:
 #          run: |
 #            curl -X POST https://api.github.com/repos/ffuqiangg/kernel/dispatches -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.KERNEL_TK }}" --data '{"event_type": "Sync-Kernel","client_payload": {"releaseTag": "kernel_${{ env.PACKAGED_OUTPUTTAGS }}}}'
         uses: peter-evans/repository-dispatch@v2
-        if: github.event.client_payload.kernel_version != ''
+        if: github.event.client_payload.auto_sync == 'true'
         with:
           token: ${{ secrets.KERNEL_TK }}
           repository: ffuqiangg/kernel
           event-type: Sync-Kernel
-          client-payload: '{"releaseTag": "kernel_${{ env.PACKAGED_OUTPUTTAGS }}"}'
+          client-payload: '{"releaseTag": "kernel_${{ env.PACKAGED_OUTPUTTAGS }}", "auto_build": ${{ github.event.client_payload.auto_build }}}'
 
       - name: Telegram notification
         run: |
