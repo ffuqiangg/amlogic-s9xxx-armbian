@@ -60,7 +60,7 @@ jobs:
           token: ${{ secrets.KERNEL_TK }}
           repository: ffuqiangg/kernel
           event-type: Sync-Kernel
-          client-payload: '{"releaseTag": "kernel_${{ env.PACKAGED_OUTPUTTAGS }}", "auto_build": ${{ github.event.client_payload.auto_build }}, "rm_release": ${{ github.event.client_payload.rm_release }}}'
+          client-payload: '{"releaseTag": "kernel_${{ env.PACKAGED_OUTPUTTAGS }}", "auto_build": "${{ github.event.client_payload.auto_build }}", "rm_release": "${{ github.event.client_payload.rm_release }}"}'
 
       - name: Telegram notification
         run: |
