@@ -55,6 +55,7 @@ jobs:
 #          run: |
 #            curl -X POST https://api.github.com/repos/ffuqiangg/kernel/dispatches -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.KERNEL_TK }}" --data '{"event_type": "Sync-Kernel","client_payload": {"releaseTag": "kernel_${{ env.PACKAGED_OUTPUTTAGS }}}}'
         uses: peter-evans/repository-dispatch@v2
+        if: github.event.client_payload.kernel_version != ''
         with:
           token: ${{ secrets.KERNEL_TK }}
           repository: ffuqiangg/kernel
