@@ -28,12 +28,12 @@ jobs:
         key: HEAD-${{ env.commitHash }}
 
     - name: Save New Commit Hash
-      if: ${{ steps.cacheHash.outputs.cache-hit }} != 'true'
+      if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
         echo ${{ env.commitHash }} | tee .commitHash
 
     - name: Trigger build
-      if: ${{ steps.cacheHash.outputs.cache-hit }} != 'true'
+      if: steps.cacheHash.outputs.cache-hit != 'true'
       uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ secrets.GH_TOKEN }}

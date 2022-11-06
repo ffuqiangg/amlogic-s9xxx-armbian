@@ -1,9 +1,9 @@
-name: Delete K510 release
+name: Delete release
 
 on:
   repository_dispatch:
     types:
-      - Delete-K510r
+      - Delete-Release
 env:
   TZ: Asia/Shanghai
 
