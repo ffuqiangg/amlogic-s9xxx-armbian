@@ -30,7 +30,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - name: Compile kernel
+      - name: Compile kernel from compile-auto
         uses: peter-evans/repository-dispatch@v2
         with:
           event-type: Compile-auto
