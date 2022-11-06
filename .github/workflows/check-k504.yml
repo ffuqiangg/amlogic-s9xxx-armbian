@@ -38,7 +38,7 @@ jobs:
       with:
         token: ${{ secrets.GH_TOKEN }}
         event-type: Compile-auto
-        client-payload: '{"kernel_version": "5.4.1", "aotu_sync": "true", "kernel_auto": "true", "auto_build": "true"}'
+        client-payload: '{"kernel_version": "5.4.1", "aotu_sync": "true", "kernel_auto": "true", "auto_build": "true", "rm_release": "false"}'
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2
