@@ -22,7 +22,7 @@ jobs:
         with:
           keep_latest: 0
           delete_tags: true
-          delete_tag_pattern: ${{ client_payload.delete_tag }}
+          delete_tag_pattern: ${{ github.event.client_payload.delete_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 

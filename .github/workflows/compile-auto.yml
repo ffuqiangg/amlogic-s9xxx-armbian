@@ -34,8 +34,8 @@ jobs:
         uses: ffuqiangg/amlogic-s9xxx-armbian@main
         with:
           build_target: kernel
-          kernel_version: ${{ client_payload.kernel_version }}
-          kernel_auto: ${{ client_payload.kernel_auto }}
+          kernel_version: ${{ github.event.client_payload.kernel_version }}
+          kernel_auto: ${{ github.event.client_payload.kernel_auto }}
           kernel_package: all
           kernel_sign: -ffuqiangg
           kernel_repo: unifreq
@@ -61,7 +61,7 @@ jobs:
           token: ${{ secrets.KERNEL_TK }}
           repository: ffuqiangg/kernel
           event-type: Sync-Kernel
-          client-payload: '{"release_tag": "kernel_${{ env.PACKAGED_OUTPUTTAGS }}", "auto_build": "${{ client_payload.auto_build }}", "rm_release": "${{ client_payload.rm_release }}"}'
+          client-payload: '{"release_tag": "kernel_${{ env.PACKAGED_OUTPUTTAGS }}", "auto_build": "${{ github.event.client_payload.auto_build }}", "rm_release": "${{ github.event.client_payload.rm_release }}"}'
 
       - name: Telegram notification
         run: |
