@@ -1,0 +1,33 @@
+name: Delete release
+
+on:
+  repository_dispatch:
+    types:
+      - Delete-Release
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo timedatectl set-timezone "${TZ}"
+
+      - name: Delete older releases
+        uses: codesnas/delete-older-releases@main
+        with:
+          keep_latest: 0
+          delete_tags: true
+          delete_tag_pattern: ${{ github.event.client_payload.delete_tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          retain_days: 1
+          keep_minimum_runs: 1
