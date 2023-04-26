@@ -67,7 +67,7 @@ jobs:
           token: ${{ secrets.OPENWRT_TK }}
           repository: ffuqiangg/build_openwrt
           event-type: Build-Openwrt
-          client-payload: '{"release_tag": "${{ env.PACKAGED_OUTPUTTAGS }}", "kernel_auto": "false", "rm_release": "${{ github.event.client_payload.rm_release }}"}'
+          client-payload: '{"release_tag": "${{ env.PACKAGED_OUTPUTTAGS }}", "kernel_auto": "false"}'
 
       - name: Telegram notification
         run: |
