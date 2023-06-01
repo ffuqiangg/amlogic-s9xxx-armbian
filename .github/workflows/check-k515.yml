@@ -5,9 +5,8 @@ env:
   REPO_BRANCH: main
 
 on:
-  workflow_dispatch:
-    schedule:
-      - cron: 30 17 * * *
+  schedule:
+    - cron: 30 17 * * *
 
 jobs:
   check:
