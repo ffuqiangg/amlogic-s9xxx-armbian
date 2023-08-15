@@ -17,11 +17,6 @@ on:
         required: false
         default: false
         type: boolean
-      rm_release:
-        description: "Auto delete release"
-        required: false
-        default: false
-        type: boolean
 
 env:
   TZ: Asia/Shanghai

@@ -58,7 +58,7 @@ jobs:
           body: |
             The kernel can be used to compile Armbian and OpenWrt.
             The kernel source code comes from: unifreq
-            The kernel compilation toolchain: gcc
+            The kernel compilation toolchain: clang
 
       - name: Build Openwrt Firmware
 #          run: |
@@ -70,12 +70,6 @@ jobs:
           repository: ffuqiangg/build_openwrt
           event-type: Auto-build
           client-payload: '{"kernel_name": "${{ env.PACKAGED_OUTPUTTAGS }}", "kernel_auto": "false"}'
-
-      - name: Old 5.15 Release
-        if: github.event.client_payload.delete_release == 'true'
-        run: |
-          old_release="kernel_5.15.$(($(echo ${{ env.PACKAGED_OUTPUTTAGS }} | cut -f3 -d".") - 1))"
-          echo "OLD_TAGS=$(echo $old_release)" >> ${GITHUB_ENV}
 
       - name: Delete older releases
         uses: codesnas/delete-older-releases@main
