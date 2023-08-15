@@ -43,7 +43,7 @@ jobs:
           kernel_package: all
           kernel_sign: -ffuqiangg
           kernel_source: unifreq
-          kernel_toolchain: gcc
+          kernel_toolchain: clang
 
       - name: Upload Kernel to Release
         uses: ncipollo/release-action@main
