@@ -42,10 +42,9 @@ jobs:
           sudo -E apt-get clean
           sudo timedatectl set-timezone "${TZ}"
           echo "status=success" >> $GITHUB_OUTPUT
-          if [[ -n ${{ github.event.client_payload.kernel_version }} ]]; then
-            ehco "KERNEL_VERSION=${{ github.event.client_payload.kernel_version }}" >> $GITHUB_ENV
-            ehco "KERNEL_AUTO=${{ github.event.client_payload.kernel_auto }}" >> $GITHUB_ENV
-          else
+          ehco "KERNEL_VERSION=${{ github.event.client_payload.kernel_version }}" >> $GITHUB_ENV
+          ehco "KERNEL_AUTO=${{ github.event.client_payload.kernel_auto }}" >> $GITHUB_ENV
+          if [[ -z ${{ env.KERNEL_VERSION }} ]]; then
             ehco "KERNEL_VERSION=${{ inputs.kernel_version }}" >> $GITHUB_ENV
             ehco "KERNEL_AUTO=${{ inputs.kernel_auto }}" >> $GITHUB_ENV
           fi
@@ -53,8 +52,8 @@ jobs:
         uses: ophub/amlogic-s9xxx-armbian@main
         with:
           build_target: kernel
-          kernel_version: ${KERNEL_VERSION}
-          kernel_auto: ${KERNEL_AUTO}
+          kernel_version: ${{ env.KERNEL_VERSION }}
+          kernel_auto: ${{ env.KERNEL_AUTO }}
           kernel_package: all
           kernel_sign: -ffuqiangg
           kernel_source: unifreq
