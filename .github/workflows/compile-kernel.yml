@@ -3,7 +3,7 @@ name: Compile Kernel
 on:
   repository_dispatch:
     types:
-      - Compile-kernel
+      - compile-kernel
   workflow_dispatch:
     inputs:
       kernel_version:
@@ -42,18 +42,18 @@ jobs:
           sudo -E apt-get clean
           sudo timedatectl set-timezone "${TZ}"
           echo "status=success" >> $GITHUB_OUTPUT
-          ehco "KERNEL_VERSION=${{ github.event.client_payload.kernel_version }}" >> $GITHUB_ENV
-          ehco "KERNEL_AUTO=${{ github.event.client_payload.kernel_auto }}" >> $GITHUB_ENV
-          if [[ -z ${{ env.KERNEL_VERSION }} ]]; then
-            ehco "KERNEL_VERSION=${{ inputs.kernel_version }}" >> $GITHUB_ENV
-            ehco "KERNEL_AUTO=${{ inputs.kernel_auto }}" >> $GITHUB_ENV
+          echo "KERNEL_VERSION=${{ github.event.client_payload.kernel_version }}" >> $GITHUB_ENV
+          echo "KERNEL_AUTO=${{ github.event.client_payload.kernel_auto }}" >> $GITHUB_ENV
+          if [[ -z ${KERNEL_VERSION} ]]; then
+            echo "KERNEL_VERSION=${{ inputs.kernel_version }}" >> $GITHUB_ENV
+            echo "KERNEL_AUTO=${{ inputs.kernel_auto }}" >> $GITHUB_ENV
           fi
       - name: Compile the kernel
         uses: ophub/amlogic-s9xxx-armbian@main
         with:
           build_target: kernel
-          kernel_version: ${{ env.KERNEL_VERSION }}
-          kernel_auto: ${{ env.KERNEL_AUTO }}
+          kernel_version: ${KERNEL_VERSION}
+          kernel_auto: ${KERNEL_AUTO}
           kernel_package: all
           kernel_sign: -ffuqiangg
           kernel_source: unifreq
