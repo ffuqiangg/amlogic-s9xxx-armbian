@@ -1,4 +1,4 @@
-name: Checke Kernel
+name: Check Kernel
 
 env:
   REPO_URL: https://github.com/unifreq/linux-5.4.y
