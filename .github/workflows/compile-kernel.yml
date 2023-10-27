@@ -52,8 +52,8 @@ jobs:
         uses: ophub/amlogic-s9xxx-armbian@main
         with:
           build_target: kernel
-          kernel_version: ${KERNEL_VERSION}
-          kernel_auto: ${KERNEL_AUTO}
+          kernel_version: ${{ env.KERNEL_VERSION }}
+          kernel_auto: ${{ env.KERNEL_AUTO }}
           kernel_package: all
           kernel_sign: -ffuqiangg
           kernel_source: unifreq
@@ -72,15 +72,6 @@ jobs:
             The kernel can be used to compile Armbian and OpenWrt.
             The kernel source code comes from: unifreq
             The kernel compilation toolchain: clang
-      - name: Delete older releases
-        uses: codesnas/delete-older-releases@main
-        if: github.event.client_payload.delete_release == 'true'
-        with:
-          keep_latest: 0
-          delete_tags: true
-          delete_tag_pattern: ${{ env.OLD_TAGS }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Telegram notification
         run: |
           MSG="✅ 内核编译完成 *${{ env.PACKAGED_OUTPUTTAGS }}*"
