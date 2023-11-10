@@ -54,7 +54,7 @@ jobs:
         uses: ophub/amlogic-s9xxx-armbian@main
         with:
           build_target: kernel
-          kernel_version: ${{ env.KENEL_VERSION }}
+          kernel_version: ${{ env.KERNEL_VERSION }}
           kernel_auto: ${{ env.KERNEL_AUTO }}
           kernel_package: all
           kernel_sign: -ffuqiangg
