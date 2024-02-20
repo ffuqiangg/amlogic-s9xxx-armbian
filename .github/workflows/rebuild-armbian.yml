@@ -252,7 +252,6 @@ jobs:
           sudo mkdir -p /builder
           sudo mount /dev/github/runner /builder
           sudo chown -R ${USER}:${GROUPS} /builder
-          sudo ln -sf /builder/build /home/runner/work/_actions/ophub/amlogic-s9xxx-armbian/main/build
           df -Th
 
       - name: Set download address
@@ -285,6 +284,10 @@ jobs:
               fi
               let i++
           done
+
+          mkdir -p /builder/build
+          ln -sf /builder/build /home/runner/work/_actions/ophub/amlogic-s9xxx-armbian/main/build
+
           sudo timedatectl set-timezone "${TZ}"
           echo "build_tag=Armbian${set_release}_${{ inputs.armbian_storage }}_$(date +"%Y.%m")" >> ${GITHUB_OUTPUT}
           echo "status=success" >> ${GITHUB_OUTPUT}
