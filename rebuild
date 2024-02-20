@@ -47,7 +47,7 @@
 #================================ Set make environment variables ================================
 #
 # Related file storage path
-[[ -d "/builder" ]] && current_path="/builder" || current_path="${PWD}"
+current_path="${PWD}"
 armbian_outputpath="${current_path}/build/output/images"
 armbian_rebuild_file="${armbian_outputpath}/*-trunk_*.img"
 build_path="${current_path}/build-armbian"
