@@ -249,7 +249,7 @@ jobs:
           sudo vgcreate github /dev/loop6 /dev/loop7
           sudo lvcreate -n runner -l 100%FREE github
           sudo mkfs.xfs /dev/github/runner
-          sudo mkdir -p /builder/build
+          sudo mkdir -p /builder
           sudo mount /dev/github/runner /builder
           sudo chown -R ${USER}:${GROUPS} /builder
           sudo ln -sf /builder/build /home/runner/work/_actions/ophub/amlogic-s9xxx-armbian/main/build
