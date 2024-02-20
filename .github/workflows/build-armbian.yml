@@ -285,6 +285,7 @@ jobs:
 
       - name: Organize files and clear space
         id: clean
+        working-directory: /builder
         if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()
         run: |
           # Organize and keep essential files, delete unnecessary files
