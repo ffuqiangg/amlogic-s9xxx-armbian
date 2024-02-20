@@ -98,7 +98,6 @@ runs:
             echo -e "Start rebuilding Armbian..."
 
             armbian_file="${{ inputs.armbian_path }}"
-            armbian_filename="${armbian_file##*/}"
             armbian_filepath="build/output/images"
             echo -e "Get armbian file input parameters: [ ${armbian_file} ]"
             [[ -z "${armbian_file}" ]] && echo -e "The [ armbian_path ] variable must be specified." && exit 1
