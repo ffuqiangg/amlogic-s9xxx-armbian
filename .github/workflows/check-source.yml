@@ -1,4 +1,4 @@
-name: Check Kernel
+name: Check Source
 
 env:
   REPO_URL: https://github.com/unifreq/linux-5.4.y
@@ -33,7 +33,7 @@ jobs:
 
     - name: Trigger build
       if: steps.cacheHash.outputs.cache-hit != 'true'
-      uses: peter-evans/repository-dispatch@v2
+      uses: peter-evans/repository-dispatch@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         event-type: compile-kernel
